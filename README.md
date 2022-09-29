@@ -5,9 +5,15 @@ This is an AWS Lambda that downloads the NORAD daily amateur radio satellite TLE
 [Celestrak Amateur Satellite Data File](http://www.celestrak.com/NORAD/elements/amateur.txt) 
 and stores it in S3 for use by the [ADIF Processor](https://bit.ly/adifproc).
 
+## Building
+Use `sbt assembly` to create the jar with dependencies. You will need to set the 
+permission environment variables `AWS_ACCESS_KEY_ID`and `AWS_SECRET_ACCESS_KEY`
+within the shell that you run the command so the test to upload to the S3 bucket works.
+
 ## Configuration
 The script [create-lambda.sh](./src/main/scripts/create-lambda.sh) will create the lambda. You will need
-to define the role `lambda-executor` in AWS with permission policy `AWSLambdaRole` and use `aws configure`
+to define the role `lambda-executor` in AWS with permission policy `AWSLambdaRole` and permission to access
+the S3 repository such as `AmazonS3FullAccess` then use `aws configure`
 setup [AWS cli](https://aws.amazon.com/cli/) with an account with permissions to create a lambda.
 
 ## Triggering the Lambda
